@@ -9,6 +9,7 @@ import {
   ClipboardCheck,
   Layers3,
   MapPin,
+  Menu,
   Radar,
   Search,
   ShieldCheck,
@@ -18,6 +19,7 @@ import {
 } from 'lucide-react';
 import type {CSSProperties} from 'react';
 import {AnimatedScore} from './AnimatedScore';
+import {BrandLogo} from '@/components/brand/BrandLogo';
 import styles from './HomeExperience.module.css';
 
 const scoreRows=[
@@ -27,7 +29,7 @@ const scoreRows=[
 ];
 
 function Brand(){
-  return <Link className={styles.brand} href="/" aria-label="TradeStak home"><span className={styles.brandMark}><Layers3 size={19}/></span><span>Trade<em>Stak</em></span></Link>;
+  return <BrandLogo variant="horizontal" size="md" className={styles.brand}/>;
 }
 
 function IntelligenceCard(){
@@ -70,8 +72,9 @@ export function HomeExperience(){
   return <div className={styles.page}>
     <header className={styles.nav}>
       <Brand/>
-      <nav aria-label="Primary navigation"><a href="#builders">For builders</a><a href="#suppliers">For suppliers</a><Link href="/marketplace">Network</Link></nav>
+      <nav aria-label="Primary navigation"><Link href="/marketplace">Marketplace</Link><a href="#builders">For builders</a><a href="#suppliers">For suppliers</a><Link href="/pricing">Pricing</Link><a href="#how-it-works">How it works</a></nav>
       <div className={styles.navActions}><Link href="/login">Sign in</Link><Link className={styles.navButton} href="/signup">Join the network <ArrowRight size={15}/></Link></div>
+      <details className="homeMobileMenu"><summary aria-label="Open navigation"><Menu size={21}/></summary><div><Link href="/marketplace">Marketplace</Link><a href="#builders">For builders</a><a href="#suppliers">For suppliers</a><Link href="/pricing">Pricing</Link><a href="#how-it-works">How it works</a><Link href="/login">Sign in</Link></div></details>
     </header>
 
     <main>
@@ -89,7 +92,7 @@ export function HomeExperience(){
         <IntelligenceCard/>
       </section>
 
-      <section className={styles.signalStrip} aria-label="TradeStak platform pillars">
+      <section className={styles.signalStrip} id="how-it-works" aria-label="TradeStak platform pillars">
         <span>SUPPLIER DISCOVERY</span><i/><span>VERIFIED REPUTATION</span><i/><span>NETWORK INTELLIGENCE</span><i/><span>BETTER BUILDING</span>
       </section>
 

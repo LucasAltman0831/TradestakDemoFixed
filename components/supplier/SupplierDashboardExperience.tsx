@@ -37,6 +37,8 @@ import {
 } from 'lucide-react';
 import {useState} from 'react';
 import styles from './SupplierDashboardExperience.module.css';
+import {BrandLogo} from '@/components/brand/BrandLogo';
+import {ScoreExplanation} from '@/components/brand/ReputationUI';
 
 const navItems=[
   {label:'Dashboard',icon:Gauge,active:true},
@@ -59,7 +61,7 @@ const performance=[
   {label:'Responsiveness',score:94,change:'+2.4',benchmark:87},
 ];
 
-function Brand(){return <Link className={styles.brand} href="/"><span><Layers3 size={18}/></span>Trade<em>Stak</em></Link>}
+function Brand(){return <BrandLogo variant="mark" size="md" className={styles.brand}/>}
 
 function Stars({count}:{count:number}){return <span className={styles.stars} aria-label={`${count} out of 5 stars`}>{Array.from({length:5},(_,index)=><Star key={index} size={11} fill={index<count?'currentColor':'none'}/>)}</span>}
 
@@ -92,6 +94,7 @@ export function SupplierDashboardExperience(){
           <article><div className={styles.metricLabel}><span><Users2 size={15}/>Builder Saves</span><small>ALL TIME</small></div><div className={styles.metricValue}><strong>18</strong><span><TrendingUp size={12}/>4</span></div><div className={styles.savedFaces}><i>HA</i><i>RB</i><i>SM</i><i>+15</i></div><p>4 new saves this month</p></article>
           <article className={styles.opportunityMetric}><div className={styles.metricLabel}><span><Target size={15}/>Active Opportunities</span><small>YOUR MARKET</small></div><div className={styles.metricValue}><strong>7</strong><span className={styles.warm}>High intent</span></div><div className={styles.opportunityLine}><i><Sparkles size={12}/></i><span>3 new this week</span></div><p>Estimated $1.2M supplier demand</p></article>
         </section>
+        <div className="scoreMethod"><ScoreExplanation compact/></div>
 
         <section className={styles.layoutGrid}>
           <div className={styles.primaryColumn}>

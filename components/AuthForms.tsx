@@ -6,6 +6,7 @@ import {FormEvent, useState} from 'react';
 import {ArrowRight, Building2, Check, Eye, EyeOff, HardHat, LockKeyhole, ShieldCheck} from 'lucide-react';
 import {createClient} from '@/lib/supabase/client';
 import type {Role} from '@/lib/types';
+import {BrandLogo} from '@/components/brand/BrandLogo';
 import styles from './AuthForms.module.css';
 
 type AccountRole = Exclude<Role, 'admin'>;
@@ -30,15 +31,15 @@ function friendlyError(message: string) {
 
 function BrandPanel({mode}:{mode:'login'|'signup'}) {
   return <aside className={styles.brandPanel}>
-    <Link className={styles.brand} href="/"><span><HardHat size={22}/></span>Trade<em>Stak</em></Link>
+    <BrandLogo variant="horizontal" size="lg" className={styles.brand}/>
     <div className={styles.brandCopy}>
       <p className={styles.kicker}>Construction reputation intelligence</p>
-      <h2>{mode === 'login' ? 'Your supplier network, ready for the next decision.' : 'Build trust before the first bid is opened.'}</h2>
-      <p>Verified performance data gives builders confidence and gives great suppliers the visibility they deserve.</p>
+      <h2>{mode === 'login' ? 'TradeStak Network' : 'Build trust before the first bid is opened.'}</h2>
+      <p>{mode === 'login' ? 'Your supplier intelligence network, ready for the next project decision.' : 'Verified performance data gives builders confidence and gives great suppliers the visibility they deserve.'}</p>
       <div className={styles.proofCard}>
-        <div><span>Network health</span><strong>91</strong><small>/100</small></div>
-        <div className={styles.proofBars}><i style={{width:'92%'}}/><i style={{width:'86%'}}/><i style={{width:'89%'}}/></div>
-        <p><ShieldCheck size={16}/> Verified intelligence across your network</p>
+        <div className={styles.networkStat}><span>Suppliers indexed</span><strong>2,481</strong></div>
+        <div className={styles.proofMetrics}><span><b>91</b><small>Average network score</small></span><span><ShieldCheck/><small>Verified builder feedback</small></span></div>
+        <p><ShieldCheck size={16}/> Decisions backed by verified performance</p>
       </div>
     </div>
     <p className={styles.brandFooter}>Built for the people who build everything else.</p>
@@ -62,7 +63,7 @@ export function LoginForm({next,error}:{next?:string;error?:string}) {
     router.push(safePath(next) ?? '/api/auth/route'); router.refresh();
   }
   return <main className={styles.authShell}><BrandPanel mode="login"/><section className={styles.formPanel}><div className={styles.formBox}>
-    <p className={styles.mobileBrand}>TRADESTAK</p><p className={styles.eyebrow}>Secure workspace access</p><h1>Welcome back.</h1><p className={styles.intro}>Sign in to continue to your TradeStak workspace.</p>
+    <div className={styles.mobileBrand}><BrandLogo variant="horizontal" size="sm"/></div><p className={styles.eyebrow}>Secure workspace access</p><h1>Welcome back to your supplier intelligence workspace.</h1><p className={styles.intro}>Sign in to continue to the TradeStak network.</p>
     <form onSubmit={submit} noValidate>
       <label className={styles.field}><span>Work email</span><input name="email" type="email" autoComplete="email" placeholder="you@company.com" required/></label>
       <PasswordField/>
@@ -93,10 +94,10 @@ export function SignupForm({initialRole}:{initialRole?:string}) {
     setSuccess(true);setMessage('Account created. Check your inbox to verify your email and open your workspace.');
   }
   return <main className={styles.authShell}><BrandPanel mode="signup"/><section className={styles.formPanel}><div className={`${styles.formBox} ${styles.signupBox}`}>
-    <p className={styles.mobileBrand}>TRADESTAK</p><p className={styles.eyebrow}>{role?'Create your workspace':'Choose your TradeStak path'}</p><h1>{role?`Join as a ${role==='builder'?'Builder':'Supplier'}.`:'What best describes you?'}</h1>
+    <div className={styles.mobileBrand}><BrandLogo variant="horizontal" size="sm"/></div><p className={styles.eyebrow}>{role?'Create your workspace':'Choose your TradeStak path'}</p><h1>{role?`Join as a ${role==='builder'?'Builder':'Supplier'}.`:'What best describes you?'}</h1>
     {!role?<><p className={styles.intro}>Your role shapes the intelligence, tools, and dashboard you see.</p><div className={styles.roleGrid}>
-      <button onClick={()=>setRole('builder')}><span className={styles.roleIcon}><Building2/></span><strong>Builder / Buyer</strong><p>Find suppliers, manage relationships, and reduce procurement risk.</p><em>Explore the builder workspace <ArrowRight size={16}/></em></button>
-      <button onClick={()=>setRole('supplier')}><span className={styles.roleIcon}><HardHat/></span><strong>Supplier / Trade Partner</strong><p>Build your reputation and get discovered by builders.</p><em>Build your supplier presence <ArrowRight size={16}/></em></button>
+      <button onClick={()=>setRole('builder')}><span className={styles.roleIcon}><Building2/></span><strong>Builder / Buyer</strong><p>Find trusted suppliers faster.</p><em>Explore the builder workspace <ArrowRight size={16}/></em></button>
+      <button onClick={()=>setRole('supplier')}><span className={styles.roleIcon}><HardHat/></span><strong>Supplier / Trade Partner</strong><p>Build your reputation and get discovered.</p><em>Build your supplier presence <ArrowRight size={16}/></em></button>
     </div></>:<><button className={styles.back} onClick={()=>{setRole(undefined);setMessage('')}}>← Change account type</button><form onSubmit={submit} noValidate>
       <div className={styles.twoCols}><label className={styles.field}><span>Full name</span><input name="full_name" autoComplete="name" placeholder="Alex Morgan" required minLength={2}/></label><label className={styles.field}><span>Company name</span><input name="company" autoComplete="organization" placeholder="Morgan Construction" required minLength={2}/></label></div>
       <label className={styles.field}><span>Work email</span><input name="email" type="email" autoComplete="email" placeholder="you@company.com" required/></label>

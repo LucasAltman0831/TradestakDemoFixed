@@ -31,6 +31,8 @@ import {
 } from 'lucide-react';
 import {useMemo,useState} from 'react';
 import styles from './BuilderDashboard.module.css';
+import {BrandLogo} from '@/components/brand/BrandLogo';
+import {ScoreExplanation} from '@/components/brand/ReputationUI';
 
 type Supplier={
   id:number;
@@ -49,7 +51,7 @@ type Supplier={
 };
 
 const suppliers:Supplier[]=[
-  {id:1,name:'Northline Concrete Co.',initials:'NC',trade:'Concrete',location:'Athens, AL',score:92,quality:95,delivery:89,communication:93,evaluations:38,verified:true,accent:'#cc8b2b',status:'Preferred'},
+  {id:1,name:'Northline Concrete Co.',initials:'NC',trade:'Concrete',location:'Athens, AL',score:92,quality:95,delivery:89,communication:93,evaluations:38,verified:true,accent:'#1469ff',status:'Preferred'},
   {id:2,name:'Summit Roofing Supply',initials:'SR',trade:'Roofing',location:'Huntsville, AL',score:88,quality:91,delivery:84,communication:89,evaluations:27,verified:true,accent:'#2e6c73',status:'Approved'},
   {id:3,name:'Redstone Plumbing Partners',initials:'RP',trade:'Plumbing',location:'Madison, AL',score:86,quality:90,delivery:82,communication:86,evaluations:22,verified:true,accent:'#6a655c',status:'Approved'},
   {id:4,name:'Tennessee Valley Millwork',initials:'TV',trade:'Millwork',location:'Decatur, AL',score:84,quality:92,delivery:78,communication:83,evaluations:19,verified:true,accent:'#936645',status:'Monitor'},
@@ -73,7 +75,7 @@ const risks=[
 ];
 
 function Brand(){
-  return <Link className={styles.brand} href="/"><span><Layers3 size={18}/></span>Trade<em>Stak</em></Link>;
+  return <BrandLogo variant="mark" size="md" className={styles.brand}/>;
 }
 
 function ScoreRing({score,size='large'}:{score:number;size?:'large'|'small'}){
@@ -140,6 +142,7 @@ export function BuilderDashboard(){
           <article><div className={styles.metricLabel}><span><ClipboardCheck size={15}/>Active Evaluations</span></div><div className={styles.metricValue}><strong>34</strong><span className={styles.neutral}>3 due</span></div><p>12 completed this month</p><div className={styles.progress}><i/></div></article>
           <article className={styles.riskMetric}><div className={styles.metricLabel}><span><AlertTriangle size={15}/>Risk Signals</span></div><div className={styles.metricValue}><strong>2</strong><span className={styles.warning}>Needs review</span></div><p>1 high · 1 medium priority</p><button>Review risks <ChevronRight size={13}/></button></article>
         </section>
+        <div className="scoreMethod"><ScoreExplanation compact/></div>
 
         <section className={styles.dashboardGrid}>
           <div className={styles.primaryColumn}>
