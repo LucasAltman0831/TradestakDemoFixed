@@ -99,7 +99,7 @@ export function HomeExperience(){
       <section className={styles.builderSection} id="builders">
         <div className={styles.sectionIntro}><div><span className={styles.sectionIndex}>01 / BUILDERS</span><h2>Know who you&apos;re building with.</h2></div><p>Your team already knows which suppliers perform. TradeStak turns that experience into durable intelligence everyone can use.</p></div>
         <div className={styles.featureGrid}>
-          {builderFeatures.map(({icon:Icon,title,text},index)=><article className={styles.featureCard} key={title}><div className={styles.featureTop}><span>0{index+1}</span><Icon size={22}/></div><h3>{title}</h3><p>{text}</p><span className={styles.featureLink}>Explore the network <ChevronRight size={15}/></span></article>)}
+          {builderFeatures.map(({icon:Icon,title,text},index)=><Link href="/marketplace" className={styles.featureCard} style={{display:'block',color:'inherit',textDecoration:'none'}} key={title}><div className={styles.featureTop}><span>0{index+1}</span><Icon size={22}/></div><h3>{title}</h3><p>{text}</p><span className={styles.featureLink}>Explore the network <ChevronRight size={15}/></span></Link>)}
         </div>
         <div className={styles.builderConsole}>
           <div className={styles.consoleCopy}><span className={styles.kicker}>YOUR SUPPLIER NETWORK</span><h3>A clearer signal across every trade.</h3><p>Monitor your network at a glance, compare performance, and focus attention where it matters.</p><Link href="/signup?role=builder">Build your TradeStak <ArrowRight size={16}/></Link></div>
@@ -113,7 +113,7 @@ export function HomeExperience(){
 
       <section className={styles.supplierSection} id="suppliers">
         <div className={styles.supplierAside}><span className={styles.sectionIndex}>02 / SUPPLIERS</span><h2>Your reputation should work as hard as you do.</h2><p>Turn reliable service into a reputation builders can see before the first call.</p><div className={styles.reputationStamp}><Sparkles size={18}/><span><small>PROFILE STRENGTH</small><b><AnimatedScore value={88} suffix="%"/></b></span></div></div>
-        <div className={styles.supplierSteps}>{supplierFeatures.map(feature=><article key={feature.number}><span>{feature.number}</span><div><h3>{feature.title}</h3><p>{feature.text}</p></div><ArrowRight size={18}/></article>)}</div>
+        <div className={styles.supplierSteps}>{supplierFeatures.map(feature=><Link href="/signup?role=supplier" style={{display:'block',color:'inherit',textDecoration:'none'}} key={feature.number}><article><span>{feature.number}</span><div><h3>{feature.title}</h3><p>{feature.text}</p></div><ArrowRight size={18}/></article></Link>)}</div>
       </section>
 
       <section className={styles.proofSection}>
