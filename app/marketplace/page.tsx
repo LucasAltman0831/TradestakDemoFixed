@@ -1,2 +1,5 @@
-import {Nav} from '@/components/Nav';import {createClient} from '@/lib/supabase/server';import {MarketplaceSearch} from '@/components/MarketplaceSearch';import type {Supplier} from '@/lib/types';
-export const revalidate=60;export default async function Page(){const s=await createClient();const {data}=await s.from('supplier_profiles').select('*').eq('is_public',true).order('verified',{ascending:false}).order('score',{ascending:false}).limit(300);return <><Nav/><main className="marketplace"><div className="eyebrow">THE TRADESTAK NETWORK</div><h1>Find the right supplier.<br/>See the evidence.</h1><MarketplaceSearch suppliers={(data||[]) as Supplier[]}/></main></>}
+import {MarketplaceExperience} from '@/components/marketplace/MarketplaceExperience';
+
+export default function Page(){
+  return <MarketplaceExperience/>;
+}
