@@ -31,13 +31,12 @@ Open `http://localhost:3000`. Run `npm run typecheck` and `npm run build` before
 
 ## Environment modes
 
-`NEXT_PUBLIC_APP_MODE=demo` enables bundled demonstration supplier records. `NEXT_PUBLIC_APP_MODE=production` disables public demo profile fallbacks so fabricated records cannot be shown as production data. Never run the demo provisioning script against a production project.
+TradeStak uses live Supabase records in every environment. The application does not bundle demonstration suppliers, reviews, or account activity.
 
 ## Environment variables
 
 | Variable | Visibility | Purpose |
 | --- | --- | --- |
-| `NEXT_PUBLIC_APP_MODE` | Public | `demo` or `production` runtime boundary |
 | `NEXT_PUBLIC_SITE_URL` | Public | Canonical origin used for redirects |
 | `NEXT_PUBLIC_SUPABASE_URL` | Public | Supabase project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Public | Supabase browser key; protected by RLS |
@@ -47,7 +46,6 @@ Open `http://localhost:3000`. Run `npm run typecheck` and `npm run build` before
 | `STRIPE_BUILDER_PRO_PRICE_ID` | Server only | Builder Pro recurring price |
 | `STRIPE_SUPPLIER_VERIFIED_PRICE_ID` | Server only | Supplier Verified recurring price |
 | `STRIPE_SUPPLIER_PREMIUM_PRICE_ID` | Server only | Supplier Premium recurring price |
-| `DEMO_*` variables | Server only | Optional demo account provisioning |
 
 Copy `.env.example`; never commit `.env.local`. No Stripe secret or Supabase service-role key may use a `NEXT_PUBLIC_` prefix.
 
@@ -69,4 +67,3 @@ The intended host is Vercel. Follow [DEPLOYMENT.md](./DEPLOYMENT.md) for environ
 - Subscription mutations run only on the server.
 - Stripe webhooks verify the raw payload signature and de-duplicate events.
 - Security headers deny framing, MIME sniffing, and unused browser capabilities.
-

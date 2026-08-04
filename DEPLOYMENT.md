@@ -30,7 +30,7 @@
 2. Keep the repository root as the root directory.
 3. Vercel automatically detects the committed pnpm lockfile and runs `npm run build`.
 4. Add all required variables from `.env.example` separately for Preview and Production.
-5. Set `NEXT_PUBLIC_APP_MODE=demo` for an investor demo and `production` for the real beta.
+5. Run every SQL file in `supabase/migrations` in filename order before accepting registrations.
 6. Set `NEXT_PUBLIC_SITE_URL` to the exact HTTPS origin for each environment.
 
 ## 5. Deploy

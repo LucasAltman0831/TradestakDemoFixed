@@ -35,13 +35,13 @@ function Brand(){
 function IntelligenceCard(){
   return <div className={styles.intelligenceStage} aria-label="Supplier intelligence preview">
     <div className={styles.gridPlane}/>
-    <div className={`${styles.floatBadge} ${styles.badgeVerified}`}><BadgeCheck size={16}/><span><b>Identity verified</b><small>Ownership confirmed</small></span></div>
-    <div className={`${styles.floatBadge} ${styles.badgeTrend}`}><TrendingUp size={16}/><span><b>Top 8%</b><small>Regional performance</small></span></div>
+    <div className={`${styles.floatBadge} ${styles.badgeVerified}`}><BadgeCheck size={16}/><span><b>Verification status</b><small>Shown transparently</small></span></div>
+    <div className={`${styles.floatBadge} ${styles.badgeTrend}`}><TrendingUp size={16}/><span><b>Performance trends</b><small>Based on real evaluations</small></span></div>
     <article className={styles.intelligenceCard}>
       <header className={styles.cardHeader}>
         <div className={styles.companyIcon}><Building2 size={22}/></div>
-        <div><span className={styles.overline}>CONCRETE · NORTH ALABAMA</span><h2>Northline Concrete Co.</h2><p><MapPin size={13}/> Athens, Alabama</p></div>
-        <span className={styles.liveDot}>LIVE</span>
+        <div><span className={styles.overline}>ILLUSTRATIVE PRODUCT PREVIEW</span><h2>Your Supplier Company</h2><p><MapPin size={13}/> Your service market</p></div>
+        <span className={styles.liveDot}>PREVIEW</span>
       </header>
       <div className={styles.scorePanel}>
         <div className={styles.mainScore}><small>TRADESTAK SCORE</small><strong><AnimatedScore value={92}/></strong><span>Excellent</span></div>
@@ -50,7 +50,7 @@ function IntelligenceCard(){
       <div className={styles.scoreRows}>
         {scoreRows.map(row=><div className={styles.scoreRow} key={row.label}><span>{row.label}</span><div className={styles.scoreTrack}><i style={{'--score':`${row.value}%`} as CSSProperties}/></div><b><AnimatedScore value={row.value}/></b></div>)}
       </div>
-      <footer className={styles.cardFooter}><span><ShieldCheck size={16}/><b>38 verified evaluations</b></span><span>Updated today</span></footer>
+      <footer className={styles.cardFooter}><span><ShieldCheck size={16}/><b>Real builder evaluations</b></span><span>Illustrative data</span></footer>
     </article>
     <div className={styles.miniPanel}><span>NETWORK SIGNAL</span><div className={styles.sparkline}>{[42,58,51,72,66,84,92].map((height,index)=><i key={index} style={{height:`${height}%`}}/>)}</div><b>Strengthening</b></div>
   </div>;

@@ -37,9 +37,9 @@ function BrandPanel({mode}:{mode:'login'|'signup'}) {
       <h2>{mode === 'login' ? 'TradeStak Network' : 'Build trust before the first bid is opened.'}</h2>
       <p>{mode === 'login' ? 'Your supplier intelligence network, ready for the next project decision.' : 'Verified performance data gives builders confidence and gives great suppliers the visibility they deserve.'}</p>
       <div className={styles.proofCard}>
-        <div className={styles.networkStat}><span>Suppliers indexed</span><strong>2,481</strong></div>
-        <div className={styles.proofMetrics}><span><b>91</b><small>Average network score</small></span><span><ShieldCheck/><small>Verified builder feedback</small></span></div>
-        <p><ShieldCheck size={16}/> Decisions backed by verified performance</p>
+        <div className={styles.networkStat}><span>Live network</span><strong>Real companies. Real feedback.</strong></div>
+        <div className={styles.proofMetrics}><span><ShieldCheck/><small>Role-based secure workspaces</small></span><span><ShieldCheck/><small>Transparent verification status</small></span></div>
+        <p><ShieldCheck size={16}/> Reputation data contributed by TradeStak members</p>
       </div>
     </div>
     <p className={styles.brandFooter}>Built for the people who build everything else.</p>
