@@ -84,8 +84,8 @@ export function HomeExperience(){
           <h1>Builders discover<br/><em>better suppliers.</em><br/>Suppliers prove<br/><em>their reputation.</em></h1>
           <p>TradeStak brings trusted performance data to the construction supply chain—so every partnership starts with clarity.</p>
           <div className={styles.heroActions}>
-            <Link className={styles.primaryButton} href="/signup?role=builder"><Building2 size={18}/>I&apos;m a Builder<ArrowRight size={17}/></Link>
-            <Link className={styles.secondaryButton} href="/signup?role=supplier"><Users2 size={18}/>I&apos;m a Supplier<ArrowRight size={17}/></Link>
+            <Link data-analytics-event="signup_click" data-analytics-destination="builder" className={styles.primaryButton} href="/signup?role=builder"><Building2 size={18}/>I&apos;m a Builder<ArrowRight size={17}/></Link>
+            <Link data-analytics-event="signup_click" data-analytics-destination="supplier" className={styles.secondaryButton} href="/signup?role=supplier"><Users2 size={18}/>I&apos;m a Supplier<ArrowRight size={17}/></Link>
           </div>
           <div className={styles.trustLine}><span><Check size={14}/>Verified evaluations</span><span><Check size={14}/>Built for construction</span><span><Check size={14}/>Evidence, not ads</span></div>
         </div>

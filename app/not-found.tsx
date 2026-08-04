@@ -1,0 +1,2 @@
+import Link from 'next/link';import {ArrowLeft,Search} from 'lucide-react';import {BrandLogo} from '@/components/brand/BrandLogo';
+export default function NotFound(){return <main className="systemState"><BrandLogo variant="horizontal" size="md"/><div className="systemStateCode">404</div><Search/><h1>That page is not in the network.</h1><p>The link may be outdated, or the supplier profile may no longer be public.</p><div><Link href="/"><ArrowLeft/>Return home</Link><Link href="/marketplace">Explore marketplace</Link></div></main>}

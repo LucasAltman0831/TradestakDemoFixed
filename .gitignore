@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+.env
+.env.*
+!.env.example
+*.log
+*.tsbuildinfo
+next-env.d.ts
+.vercel/
+.DS_Store
+Thumbs.db
+public/brand/*-key.png
+screenshots/

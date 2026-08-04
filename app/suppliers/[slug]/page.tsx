@@ -6,6 +6,8 @@ import {createClient} from '@/lib/supabase/server';
 import {findDemoSupplier} from '@/lib/demo-suppliers';
 import {PerformanceRatings,ScoreExplanation,SupplierVerificationBadge,TradeStakScoreBadge,TrustIndicators,UnclaimedProfileBadge} from '@/components/brand/ReputationUI';
 import styles from './supplier.module.css';
+import {isDemoMode} from '@/lib/runtime';
+import {AnalyticsEvent} from '@/components/Analytics';
 
 const projectExamples=['Residential development supply','Light-commercial foundations','Scheduled jobsite delivery'];
 const certifications=['OSHA compliant','Licensed trade partner','Insured operations'];
@@ -14,13 +16,13 @@ export default async function Page({params}:{params:Promise<{slug:string}>}) {
   const {slug}=await params;
   const supabase=await createClient();
   const {data}=await supabase.from('supplier_profiles').select('*').eq('slug',slug).eq('is_public',true).maybeSingle();
-  const supplier=data??findDemoSupplier(slug);
+  const supplier=data??(isDemoMode()?findDemoSupplier(slug):null);
   if(!supplier) notFound();
   const score=supplier.score??0;
   const unclaimed=!supplier.claimed;
   const years='years' in supplier&&typeof supplier.years==='number'?supplier.years:15;
 
-  return <><Nav/><main className={styles.page}>
+  return <><AnalyticsEvent event="supplier_profile_view" properties={{slug}}/><Nav/><main className={styles.page}>
     <section className={styles.hero}><div className={styles.identity}><span>{supplier.name.split(' ').map((part:string)=>part[0]).slice(0,2).join('')}</span><div><p>{supplier.trade_category} · {supplier.city}, {supplier.state}</p><h1>{supplier.name}</h1><div>{supplier.verified?<SupplierVerificationBadge/>:<UnclaimedProfileBadge/>}</div></div></div><TradeStakScoreBadge score={score} label={score>=90?'Excellent Supplier':'Established Supplier'}/></section>
     <section className={styles.layout}><div>
       <article className={styles.about}><span>COMPANY OVERVIEW</span><h2>Known in the network.<br/>Ready to be claimed.</h2><p>{supplier.description||'This supplier profile contains foundational company and reputation information.'}</p><TrustIndicators reviews={supplier.review_count??0}/><div className={styles.facts}><div><MapPin/><span>Location<b>{supplier.city}, {supplier.state}</b></span></div><div><Globe2/><span>Service area<b>{supplier.service_area||'Not provided'}</b></span></div><div><BriefcaseBusiness/><span>Years active<b>{years} years</b></span></div></div></article>

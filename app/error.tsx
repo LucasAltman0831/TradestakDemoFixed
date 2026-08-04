@@ -1,0 +1,3 @@
+'use client';
+import {useEffect} from 'react';import Link from 'next/link';import {AlertTriangle,RefreshCw} from 'lucide-react';import {BrandLogo} from '@/components/brand/BrandLogo';
+export default function ErrorPage({error,reset}:{error:Error&{digest?:string};reset:()=>void}){useEffect(()=>{console.error(error)},[error]);return <main className="systemState"><BrandLogo variant="horizontal" size="md"/><div className="systemStateCode">SYSTEM</div><AlertTriangle/><h1>We hit an unexpected issue.</h1><p>Your information is safe. Try the request again, or return to the TradeStak home page.</p><div><button onClick={reset}><RefreshCw/>Try again</button><Link href="/">Return home</Link></div>{error.digest?<small>Reference: {error.digest}</small>:null}</main>}

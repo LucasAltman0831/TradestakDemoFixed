@@ -31,10 +31,11 @@ import {
   Users2,
   X,
 } from 'lucide-react';
-import {useMemo,useState} from 'react';
+import {useEffect,useMemo,useState} from 'react';
 import {BrandLogo} from '@/components/brand/BrandLogo';
 import {ScoreExplanation} from '@/components/brand/ReputationUI';
 import styles from './MarketplaceExperience.module.css';
+import {trackEvent} from '@/lib/analytics';
 
 type Supplier={id:number;slug:string;name:string;initials:string;trade:string;location:string;score:number;quality:number;delivery:number;communication:number;value:number;years:number;service:string;projects:number;reviews:number;verified:boolean;accent:string;projectType:string;description:string;certifications:string[]};
 
@@ -69,7 +70,9 @@ function SupplierCard({supplier,saved,onSave,onPreview,selected,onCompare}:{supp
 }
 
 export function MarketplaceExperience(){
+  const demoMode=process.env.NEXT_PUBLIC_APP_MODE!=='production';
   const [query,setQuery]=useState('');
+  useEffect(()=>{if(query.trim().length<2)return;const timer=window.setTimeout(()=>trackEvent('marketplace_search',{query:query.trim()}),700);return()=>window.clearTimeout(timer)},[query]);
   const [trade,setTrade]=useState('All trades');
   const [location,setLocation]=useState('All locations');
   const [score,setScore]=useState('Any score');
@@ -83,12 +86,12 @@ export function MarketplaceExperience(){
   const [comparisonOpen,setComparisonOpen]=useState(false);
   const [mobileNav,setMobileNav]=useState(false);
 
-  const filtered=useMemo(()=>suppliers.filter(s=>{
+  const filtered=useMemo(()=>(demoMode?suppliers:[]).filter(s=>{
     const text=[s.name,s.trade,s.location,s.service].join(' ').toLowerCase();
     const minScore=score==='90+ excellent'?90:score==='85+ strong'?85:score==='80+ proven'?80:0;
     const minYears=years==='20+ years'?20:years==='10+ years'?10:years==='5+ years'?5:0;
     return text.includes(query.toLowerCase())&&(trade==='All trades'||s.trade===trade)&&(location==='All locations'||s.location.includes(location))&&s.score>=minScore&&(!verified||s.verified)&&s.years>=minYears&&(projectType==='Any project'||s.projectType===projectType);
-  }),[query,trade,location,score,verified,years,projectType]);
+  }),[demoMode,query,trade,location,score,verified,years,projectType]);
 
   function toggleCompare(id:number){setCompare(current=>current.includes(id)?current.filter(x=>x!==id):current.length<3?[...current,id]:current)}
   const compared=suppliers.filter(s=>compare.includes(s.id));
