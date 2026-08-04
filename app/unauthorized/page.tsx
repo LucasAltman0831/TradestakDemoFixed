@@ -1,0 +1,1 @@
+import Link from 'next/link';export default function Page(){return <main className='authPage'><div className='authCard'><h1>Access denied</h1><p>This workspace is not available for your account role.</p><Link className='button' href='/api/auth/route'>Return to dashboard</Link></div></main>}

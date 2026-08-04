@@ -1,0 +1,1 @@
+import {Nav} from '@/components/Nav';export default function Page(){return <><Nav/><main className='section'><h1>Terms of Service</h1><p>This starter contains a placeholder. Replace it with attorney-reviewed terms before public launch.</p></main></>}

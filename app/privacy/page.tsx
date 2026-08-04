@@ -1,0 +1,1 @@
+import {Nav} from '@/components/Nav';export default function Page(){return <><Nav/><main className='section'><h1>Privacy Policy</h1><p>This starter contains a placeholder. Replace it with an attorney-reviewed privacy policy before public launch.</p></main></>}

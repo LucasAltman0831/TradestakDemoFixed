@@ -1,0 +1,1 @@
+import {requireRole} from '@/lib/auth';import {Sidebar} from '@/components/Sidebar';import {ImportForm} from '@/components/AdminActions';export default async function Page(){await requireRole(['admin']);return <main className='shell'><Sidebar role='admin'/><section className='workspace'><h1>Import suppliers</h1><ImportForm/></section></main>}
