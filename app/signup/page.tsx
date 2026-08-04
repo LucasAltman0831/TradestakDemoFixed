@@ -1,1 +1,3 @@
-import {Nav} from '@/components/Nav';import {SignupForm} from '@/components/AuthForms';export default function Page(){return <><Nav/><main className='authPage'><SignupForm/></main></>}
+import type {Metadata} from 'next';import {SignupForm} from '@/components/AuthForms';
+export const metadata:Metadata={title:'Join TradeStak'};
+export default async function Page({searchParams}:{searchParams:Promise<{role?:string}>}){const params=await searchParams;return <SignupForm initialRole={params.role}/>}

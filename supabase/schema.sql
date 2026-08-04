@@ -16,6 +16,8 @@ create trigger evaluations_refresh_scores after insert or update or delete on pu
 alter table public.profiles enable row level security;alter table public.supplier_profiles enable row level security;alter table public.supplier_claims enable row level security;alter table public.saved_suppliers enable row level security;alter table public.evaluations enable row level security;alter table public.subscriptions enable row level security;alter table public.processed_webhook_events enable row level security;
 create policy profiles_self_read on public.profiles for select using(id=auth.uid() or public.is_role('admin'));
 create policy profiles_self_update on public.profiles for update using(id=auth.uid()) with check(id=auth.uid());
+revoke update on public.profiles from authenticated;
+grant update(full_name,company_name) on public.profiles to authenticated;
 create policy suppliers_public_read on public.supplier_profiles for select using(is_public or owner_id=auth.uid() or public.is_role('admin'));
 create policy suppliers_owner_update on public.supplier_profiles for update using(owner_id=auth.uid() and public.is_role('supplier')) with check(owner_id=auth.uid() and public.is_role('supplier'));
 create policy claims_self_read on public.supplier_claims for select using(claimant_user_id=auth.uid() or public.is_role('admin'));

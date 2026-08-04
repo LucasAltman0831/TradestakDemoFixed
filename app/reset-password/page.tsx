@@ -1,1 +1,1 @@
-import {Nav} from '@/components/Nav';import {ResetForm} from '@/components/AuthForms';export default function Page(){return <><Nav/><main className='authPage'><ResetForm/></main></>}
+import type {Metadata} from 'next';import {ResetForm} from '@/components/AuthForms';export const metadata:Metadata={title:'Choose a new password | TradeStak'};export default function Page(){return <ResetForm/>}
