@@ -7,11 +7,12 @@ SourceMetric is a B2B supplier intelligence and vendor performance platform. It 
 - Searchable supplier directory with category, location, verification, and score filters
 - SourceMetric Score and supplier performance breakdowns
 - Supplier comparison and saved supplier networks
-- Buyer evaluations and public supplier reviews
+- Buyer evaluations restricted to manually verified companies
+- Moderated public reviews with direct-business-relationship attestations
 - Free buyer analytics, risk signals, scorecards, and network exports
 - Free supplier profile claiming, company information, and media portfolios
 - Role-based authentication, protected workspaces, and billing foundations
-- Administrative claim review and supplier import foundations
+- Administrative company verification, review moderation, claim review, and supplier import foundations
 
 ## Technology
 
@@ -54,6 +55,8 @@ Buyer access is free with no credit card. Supplier participation, profile claimi
 ## Database
 
 Apply `supabase/schema.sql`, then the files in `supabase/migrations` in filename order. Existing technical identifiers such as the `builder` role, `/builder` routes, and `builder_user_id` columns are intentionally retained for database and deployment compatibility. The product displays this role as **Business / Buyer**.
+
+The company-verification migration is required before deploying the matching application code. It adds manual verification requests, verified-company status, relationship attestations, review moderation, and database policies that prevent unverified builder accounts from influencing supplier evaluations.
 
 ## Validation and deployment
 

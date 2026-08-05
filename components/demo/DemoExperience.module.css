@@ -52,3 +52,4 @@
 @media(max-width:1050px){.appFrame{height:auto;min-height:620px}.appBody{min-height:620px}.appBody>main{min-height:558px}}
 @media(max-width:760px){.appFrame{height:auto;min-height:650px}.appBody{min-height:650px}.appBody>main{min-height:588px}}
 @media(max-width:430px){.appFrame{height:auto;min-height:620px}.appBody{min-height:620px}.appBody>main{min-height:558px}.scopeNote{align-items:flex-start}}
+.page>.nav{display:none}

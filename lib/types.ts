@@ -1,3 +1,4 @@
 export type Role='builder'|'supplier'|'admin';
-export type Profile={id:string;email:string|null;role:Role;company_name:string|null;full_name:string|null;created_at:string;updated_at:string};
+export type VerificationStatus='unverified'|'pending'|'verified'|'rejected';
+export type Profile={id:string;email:string|null;role:Role;company_name:string|null;full_name:string|null;company_verification_status?:VerificationStatus;company_verified_at?:string|null;legal_company_name?:string|null;business_website?:string|null;business_phone?:string|null;company_registration_number?:string|null;created_at:string;updated_at:string};
 export type Supplier={id:string;owner_id:string|null;name:string;slug:string;trade_category:string|null;city:string|null;state:string|null;website:string|null;phone:string|null;description:string|null;service_area:string|null;claimed:boolean;verified:boolean;score:number|null;quality_score:number|null;delivery_score:number|null;communication_score:number|null;review_count:number;source_name:string|null;source_url:string|null;updated_at:string};

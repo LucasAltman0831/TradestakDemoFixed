@@ -19,7 +19,9 @@ Set `ENABLE_PAID_CHECKOUT=false` for the launch deployment. Buyer access and sup
 2. Confirm email/password authentication is enabled.
 3. Add the production domain and callback URLs to the Supabase authentication URL configuration.
 4. Confirm the `company-media` storage bucket and its access policies exist.
-5. Never put the service-role key in browser code or a public repository.
+5. Confirm `20260805_company_verification.sql` completed successfully before deploying the verification UI.
+6. Verify that new Business / Buyer accounts begin with `company_verification_status = unverified`.
+7. Never put the service-role key in browser code or a public repository.
 
 ## 4. Keep Stripe checkout disabled at launch
 
@@ -34,9 +36,12 @@ Set `ENABLE_PAID_CHECKOUT=false` for the launch deployment. Buyer access and sup
 2. Confirm the build finishes successfully.
 3. Test the homepage, supplier directory, a supplier profile, pricing, sign-up, login, password reset, and logout.
 4. Create one Business / Buyer account and one Supplier account, then confirm each reaches only its own workspace.
-5. Test supplier save, evaluation, comparison, profile claim, media upload, and admin claim review.
-6. Confirm checkout endpoints report that paid subscriptions are unavailable during the free launch period.
-7. Check desktop and mobile navigation and confirm there is no horizontal overflow.
+5. Submit one builder and one supplier company-verification request, then approve them from **Admin → Trust review**.
+6. Confirm an unverified builder cannot submit an evaluation, while an approved builder can submit one only after attesting to direct business experience.
+7. Confirm a written review remains private until an administrator approves it from **Admin → Trust review**.
+8. Test supplier save, evaluation, comparison, profile claim, media upload, and admin claim review.
+9. Confirm checkout endpoints report that paid subscriptions are unavailable during the free launch period.
+10. Check desktop and mobile navigation and confirm there is no horizontal overflow.
 
 ## 6. Before public launch
 

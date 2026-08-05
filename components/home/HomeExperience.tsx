@@ -1,8 +1,9 @@
 import Link from 'next/link';
-import {ArrowRight,BadgeCheck,BarChart3,Building2,Check,ChevronRight,ClipboardCheck,Layers3,MapPin,Menu,Scale,Search,ShieldCheck,Target,TrendingUp,Users2} from 'lucide-react';
+import {ArrowRight,BadgeCheck,BarChart3,Building2,Check,ChevronRight,ClipboardCheck,Layers3,MapPin,Scale,Search,ShieldCheck,Target,TrendingUp,Users2} from 'lucide-react';
 import type {CSSProperties} from 'react';
 import {AnimatedScore} from './AnimatedScore';
 import {BrandLogo} from '@/components/brand/BrandLogo';
+import {MarketingNav} from '@/components/MarketingNav';
 import styles from './HomeExperience.module.css';
 
 const scoreRows=[
@@ -41,7 +42,7 @@ const supplierFeatures=[
 ];
 
 export function HomeExperience({viewer}:{viewer:{name:string|null;role:string;dashboard:string}|null}){return <div className={styles.page}>
-  <header className={styles.nav}><Brand/><nav aria-label="Primary navigation"><Link href="/marketplace">Suppliers</Link><Link href="/demo">Product tour</Link><a href="#businesses">For businesses</a><a href="#suppliers">For suppliers</a><Link href="/pricing">Pricing</Link></nav><div className={styles.navActions}>{viewer?<><Link href="/profile">{viewer.name?.split(' ')[0]||'Profile'}</Link><Link className={styles.navButton} href={viewer.dashboard}>Open dashboard <ArrowRight size={15}/></Link></>:<><Link href="/login">Sign in</Link><Link className={styles.navButton} href="/signup">Get started <ArrowRight size={15}/></Link></>}</div><details className="homeMobileMenu"><summary aria-label="Open navigation"><Menu size={21}/></summary><div><Link href="/marketplace">Suppliers</Link><Link href="/demo">Product tour</Link><a href="#businesses">For businesses</a><a href="#suppliers">For suppliers</a><Link href="/pricing">Pricing</Link>{viewer?<Link href={viewer.dashboard}>Dashboard</Link>:<Link href="/login">Sign in</Link>}</div></details></header>
+  <MarketingNav viewer={viewer?{name:viewer.name,dashboard:viewer.dashboard}:null}/>
 
   <main>
     <section className={styles.hero}><div className={styles.heroCopy}><div className={styles.eyebrow}><span/><span>SUPPLIER INTELLIGENCE, SIMPLIFIED</span></div><h1>Make better<br/><em>supplier decisions.</em></h1><p>Find, evaluate, and compare suppliers using performance metrics that matter to your business.</p><div className={styles.heroActions}><Link className={styles.primaryButton} href="/marketplace"><Search size={18}/>Explore suppliers<ArrowRight size={17}/></Link><Link data-analytics-event="signup_click" data-analytics-destination="business" className={styles.secondaryButton} href={viewer?viewer.dashboard:'/signup'}><Users2 size={18}/>{viewer?'Open my workspace':'Get started'}<ArrowRight size={17}/></Link></div><div className={styles.trustLine}><span><Check size={14}/>Structured performance metrics</span><span><Check size={14}/>Transparent profile status</span><span><Check size={14}/>No pay-to-play scores</span></div></div><IntelligenceCard/></section>

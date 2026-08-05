@@ -11,7 +11,6 @@ import {
   CircleCheckBig,
   FileSpreadsheet,
   Layers3,
-  Menu,
   Network,
   PackageCheck,
   ShieldCheck,
@@ -22,6 +21,7 @@ import {
 } from 'lucide-react';
 import {useState} from 'react';
 import {BrandLogo} from '@/components/brand/BrandLogo';
+import {MarketingNav,type MarketingViewer} from '@/components/MarketingNav';
 import styles from './PricingExperience.module.css';
 
 type Role='builders'|'suppliers';
@@ -51,14 +51,13 @@ const faqs=[
 
 function Brand(){return <BrandLogo variant="horizontal" size="sm" className={styles.brand}/>}
 
-export function PricingExperience(){
+export function PricingExperience({viewer=null}:{viewer?:MarketingViewer}){
   const [role,setRole]=useState<Role>('builders');
   const [openFaq,setOpenFaq]=useState(0);
-  const [menuOpen,setMenuOpen]=useState(false);
   const activePlans=plans[role];
 
   return <div className={styles.page}>
-    <header className={styles.nav}><Brand/><nav className={menuOpen?styles.menuOpen:''}><Link href="/marketplace">Supplier network</Link><a href="#plans">Plans</a><a href="#compare">Why SourceMetric</a><a href="#faq">FAQ</a></nav><div className={styles.navActions}><Link href="/login">Sign in</Link><Link href="/signup">Get started <ArrowRight size={14}/></Link><button onClick={()=>setMenuOpen(v=>!v)} aria-label="Toggle navigation">{menuOpen?<X size={20}/>:<Menu size={20}/>}</button></div></header>
+    <MarketingNav viewer={viewer}/>
 
     <main>
       <section className={styles.hero}><div className={styles.heroGrid}/><div className={styles.heroContent}><div className={styles.eyebrow}><ShieldCheck size={14}/>LAUNCH ACCESS BUILT FOR NETWORK GROWTH</div><h1>Free for buyers.<br/><em>Free for suppliers to participate.</em></h1><p>Build the network first. Introduce optional supplier business tools only after SourceMetric creates proven value.</p><div className={styles.roleSwitch}><button className={role==='builders'?styles.activeRole:''} onClick={()=>setRole('builders')}><Building2 size={17}/><span><b>Businesses & Buyers</b><small>Free supplier intelligence</small></span></button><button className={role==='suppliers'?styles.activeRole:''} onClick={()=>setRole('suppliers')}><PackageCheck size={17}/><span><b>Suppliers</b><small>Free profile and participation</small></span></button></div><div className={styles.billingToggle}><span className={styles.activePeriod}>Free launch access</span><b>No credit card</b></div></div><aside className={styles.heroProof}><ShieldCheck size={22}/><span>REPUTATION, NOT PAY-TO-PLAY</span><h3>Business tools can be paid. Reputation cannot.</h3><p>Payment will never change a supplier’s score, organic rank, review history, or verification decision.</p></aside></section>
