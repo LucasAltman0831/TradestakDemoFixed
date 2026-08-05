@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import {useRouter} from 'next/navigation';
 import {FormEvent, useState} from 'react';
-import {ArrowRight, Building2, Check, Eye, EyeOff, HardHat, LockKeyhole, ShieldCheck} from 'lucide-react';
+import {ArrowRight, Building2, Check, Eye, EyeOff, LockKeyhole, PackageCheck, ShieldCheck} from 'lucide-react';
 import {createClient} from '@/lib/supabase/client';
 import type {Role} from '@/lib/types';
 import {BrandLogo} from '@/components/brand/BrandLogo';
@@ -34,7 +34,7 @@ function BrandPanel({mode}:{mode:'login'|'signup'}) {
     <BrandLogo variant="horizontal" size="lg" className={styles.brand}/>
     <div className={styles.brandCopy}>
       <p className={styles.kicker}>Supplier performance intelligence</p>
-      <h2>{mode === 'login' ? 'SourceMetric Network' : 'Build trust before the first bid is opened.'}</h2>
+      <h2>{mode === 'login' ? 'SourceMetric Network' : 'Build trust before the first sourcing decision.'}</h2>
       <p>{mode === 'login' ? 'Your supplier intelligence workspace, ready for the next sourcing decision.' : 'Structured performance data helps purchasing teams decide with confidence and gives strong suppliers the visibility they deserve.'}</p>
       <div className={styles.proofCard}>
         <div className={styles.networkStat}><span>Live network</span><strong>Real companies. Real feedback.</strong></div>
@@ -42,7 +42,7 @@ function BrandPanel({mode}:{mode:'login'|'signup'}) {
         <p><ShieldCheck size={16}/> Reputation data contributed by SourceMetric members</p>
       </div>
     </div>
-    <p className={styles.brandFooter}>Built for the people who build everything else.</p>
+    <p className={styles.brandFooter}>Built for better supplier decisions.</p>
   </aside>;
 }
 
@@ -97,7 +97,7 @@ export function SignupForm({initialRole}:{initialRole?:string}) {
     <div className={styles.mobileBrand}><BrandLogo variant="horizontal" size="sm"/></div><p className={styles.eyebrow}>{role?'Create your workspace':'Choose your SourceMetric path'}</p><h1>{role?`Join as a ${role==='builder'?'Business':'Supplier'}.`:'What best describes you?'}</h1>
     {!role?<><p className={styles.intro}>Your role shapes the intelligence, tools, and dashboard you see.</p><div className={styles.roleGrid}>
       <button onClick={()=>setRole('builder')}><span className={styles.roleIcon}><Building2/></span><strong>Business / Buyer</strong><p>Find, compare, and track suppliers.</p><em>Explore the business workspace <ArrowRight size={16}/></em></button>
-      <button onClick={()=>setRole('supplier')}><span className={styles.roleIcon}><HardHat/></span><strong>Supplier</strong><p>Build credibility and maintain an accurate profile.</p><em>Build your supplier presence <ArrowRight size={16}/></em></button>
+      <button onClick={()=>setRole('supplier')}><span className={styles.roleIcon}><PackageCheck/></span><strong>Supplier</strong><p>Build credibility and maintain an accurate profile.</p><em>Build your supplier presence <ArrowRight size={16}/></em></button>
     </div></>:<><button className={styles.back} onClick={()=>{setRole(undefined);setMessage('')}}>← Change account type</button><form onSubmit={submit} noValidate>
       <div className={styles.twoCols}><label className={styles.field}><span>Full name</span><input name="full_name" autoComplete="name" placeholder="Alex Morgan" required minLength={2}/></label><label className={styles.field}><span>Company name</span><input name="company" autoComplete="organization" placeholder="Morgan Supply Group" required minLength={2}/></label></div>
       <label className={styles.field}><span>Work email</span><input name="email" type="email" autoComplete="email" placeholder="you@company.com" required/></label>
