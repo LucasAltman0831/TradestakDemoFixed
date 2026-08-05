@@ -129,6 +129,7 @@ select{color-scheme:dark}.message{background:rgba(25,216,197,.1);border:1px soli
 [class*="HomeExperience_featureCard"]:hover{background:#0a2446!important}
 [class*="HomeExperience_featureCard"] p,[class*="HomeExperience_proofSection"] small,[class*="HomeExperience_supplierSteps"] p{color:#91a2b9!important}
 [class*="HomeExperience_featureLink"]{color:#19d8c5!important}
+[class*="HomeExperience_consoleCopy"] a{color:#19d8c5!important}
 [class*="HomeExperience_builderConsole"]{background:#020e22!important;border:1px solid #284365!important}
 [class*="HomeExperience_metricBoard"]{background:#071b36!important;color:#f4f7fc!important;border:1px solid #2a496f!important}
 [class*="HomeExperience_boardHeader"],[class*="HomeExperience_boardMetrics"]>div,[class*="HomeExperience_supplierSteps"],[class*="HomeExperience_supplierSteps"] article{border-color:#284365!important}
