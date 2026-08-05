@@ -11,7 +11,7 @@
 
 In Vercel, open **Project Settings → Environment Variables** and add every required value from `.env.example`. Add secrets to Production, Preview, and Development only where they are genuinely needed. Set `NEXT_PUBLIC_SITE_URL` to the final public SourceMetric address for Production.
 
-The legacy key name `STRIPE_BUILDER_PRO_PRICE_ID` powers the visible **Business Pro** plan and is intentionally unchanged so existing Stripe configuration keeps working.
+Set `ENABLE_PAID_CHECKOUT=false` for the launch deployment. Buyer access and supplier participation are free; the Stripe variables are retained only for future optional supplier business tools.
 
 ## 3. Prepare Supabase
 
@@ -21,14 +21,12 @@ The legacy key name `STRIPE_BUILDER_PRO_PRICE_ID` powers the visible **Business 
 4. Confirm the `company-media` storage bucket and its access policies exist.
 5. Never put the service-role key in browser code or a public repository.
 
-## 4. Prepare Stripe
+## 4. Keep Stripe checkout disabled at launch
 
-1. Create or confirm the Business Pro, Supplier Growth, and Supplier Premium prices.
-2. Add the price IDs to Vercel using the existing environment-variable names.
-3. Create a webhook endpoint at `https://YOUR-DOMAIN/api/stripe/webhook`.
-4. Subscribe it to checkout completion, subscription create/update/delete, and failed invoice events.
-5. Store the webhook signing secret as `STRIPE_WEBHOOK_SECRET`.
-6. Use Stripe test mode until checkout, billing, cancellation, and failed-payment handling are verified.
+1. Confirm `ENABLE_PAID_CHECKOUT` is set to `false` in Vercel.
+2. Do not advertise or sell a paid plan during the free network-building period.
+3. Retain Stripe test-mode credentials only if the dormant integration is being tested internally.
+4. Before enabling future supplier subscriptions, create the approved prices, verify every promised entitlement, test checkout and cancellation, and confirm paid status cannot affect SourceMetric Score or organic ranking.
 
 ## 5. Deploy and verify
 
@@ -37,7 +35,7 @@ The legacy key name `STRIPE_BUILDER_PRO_PRICE_ID` powers the visible **Business 
 3. Test the homepage, supplier directory, a supplier profile, pricing, sign-up, login, password reset, and logout.
 4. Create one Business / Buyer account and one Supplier account, then confirm each reaches only its own workspace.
 5. Test supplier save, evaluation, comparison, profile claim, media upload, and admin claim review.
-6. Complete test-mode Stripe checkout for each paid plan and verify the billing page updates.
+6. Confirm checkout endpoints report that paid subscriptions are unavailable during the free launch period.
 7. Check desktop and mobile navigation and confirm there is no horizontal overflow.
 
 ## 6. Before public launch

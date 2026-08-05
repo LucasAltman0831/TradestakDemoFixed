@@ -6,6 +6,7 @@ import {requireEnv,siteUrl} from '@/lib/env';
 import {getStripe,paidPlans,type PaidPlan} from '@/lib/stripe';
 
 export async function createSubscriptionCheckout(plan:PaidPlan){
+  if(process.env.ENABLE_PAID_CHECKOUT!=='true')return NextResponse.json({error:'Paid subscriptions are not available during the free launch period.'},{status:503});
   const config=paidPlans[plan];const {user,profile}=await getViewer();
   if(!user)return NextResponse.json({error:'Sign in to continue to secure checkout.'},{status:401});
   if(profile?.role!==config.role)return NextResponse.json({error:`A ${config.role} account is required for this plan.`},{status:403});

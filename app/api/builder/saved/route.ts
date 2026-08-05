@@ -1,2 +1,12 @@
-import {NextResponse} from 'next/server';import {getViewer} from '@/lib/auth';import {z} from 'zod';
-export async function POST(req:Request){const {user,profile,supabase}=await getViewer();if(!user||profile?.role!=='builder')return NextResponse.json({error:'Business account required.'},{status:403});const parsed=z.object({supplier_id:z.string().uuid()}).safeParse(await req.json());if(!parsed.success)return NextResponse.json({error:'Invalid supplier.'},{status:400});const [{count},{data:subscription}]=await Promise.all([supabase.from('saved_suppliers').select('*',{count:'exact',head:true}).eq('builder_user_id',user.id),supabase.from('subscriptions').select('status').eq('user_id',user.id).maybeSingle()]);const isPro=subscription?.status&&['active','trialing'].includes(subscription.status);if(!isPro&&(count||0)>=5)return NextResponse.json({error:'Business Free supports up to 5 saved suppliers. Upgrade to Business Pro for unlimited saves.'},{status:402});const {error}=await supabase.from('saved_suppliers').upsert({builder_user_id:user.id,supplier_profile_id:parsed.data.supplier_id},{onConflict:'builder_user_id,supplier_profile_id'});return error?NextResponse.json({error:error.message},{status:400}):NextResponse.json({ok:true});}
+import {NextResponse} from 'next/server';
+import {z} from 'zod';
+import {getViewer} from '@/lib/auth';
+
+export async function POST(req:Request){
+  const {user,profile,supabase}=await getViewer();
+  if(!user||profile?.role!=='builder')return NextResponse.json({error:'Business account required.'},{status:403});
+  const parsed=z.object({supplier_id:z.string().uuid()}).safeParse(await req.json());
+  if(!parsed.success)return NextResponse.json({error:'Invalid supplier.'},{status:400});
+  const {error}=await supabase.from('saved_suppliers').upsert({builder_user_id:user.id,supplier_profile_id:parsed.data.supplier_id},{onConflict:'builder_user_id,supplier_profile_id'});
+  return error?NextResponse.json({error:error.message},{status:400}):NextResponse.json({ok:true});
+}

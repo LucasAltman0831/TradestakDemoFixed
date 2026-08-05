@@ -1,5 +1,13 @@
 import {NextResponse} from 'next/server';
 import {getViewer} from '@/lib/auth';
-import {hasPaidAccess} from '@/lib/entitlements';
+
 function csv(value:unknown){return `"${String(value??'').replaceAll('"','""')}"`;}
-export async function GET(){const {user,profile,supabase}=await getViewer();if(!user||profile?.role!=='builder')return NextResponse.json({error:'Business account required.'},{status:403});const {data:subscription}=await supabase.from('subscriptions').select('plan,status').eq('user_id',user.id).maybeSingle();if(!hasPaidAccess(subscription)||subscription?.plan!=='builder_pro')return NextResponse.json({error:'Business Pro is required for network exports.'},{status:403});const {data}=await supabase.from('saved_suppliers').select('supplier_profiles(name,trade_category,city,state,score,quality_score,delivery_score,communication_score,review_count)').eq('builder_user_id',user.id);const rows=(data??[]).map((row:any)=>row.supplier_profiles).filter(Boolean);const body=[['Company','Trade','City','State','Overall score','Quality','Delivery','Communication','Evaluations'],...rows.map((item:any)=>[item.name,item.trade_category,item.city,item.state,item.score,item.quality_score,item.delivery_score,item.communication_score,item.review_count])].map(row=>row.map(csv).join(',')).join('\n');return new Response(body,{headers:{'content-type':'text/csv; charset=utf-8','content-disposition':'attachment; filename="sourcemetric-supplier-network.csv"'}});}
+
+export async function GET(){
+  const {user,profile,supabase}=await getViewer();
+  if(!user||profile?.role!=='builder')return NextResponse.json({error:'Business account required.'},{status:403});
+  const {data}=await supabase.from('saved_suppliers').select('supplier_profiles(name,trade_category,city,state,score,quality_score,delivery_score,communication_score,review_count)').eq('builder_user_id',user.id);
+  const rows=(data??[]).map((row:any)=>row.supplier_profiles).filter(Boolean);
+  const body=[['Company','Trade','City','State','Overall score','Quality','Delivery','Communication','Evaluations'],...rows.map((item:any)=>[item.name,item.trade_category,item.city,item.state,item.score,item.quality_score,item.delivery_score,item.communication_score,item.review_count])].map(row=>row.map(csv).join(',')).join('\n');
+  return new Response(body,{headers:{'content-type':'text/csv; charset=utf-8','content-disposition':'attachment; filename="sourcemetric-supplier-network.csv"'}});
+}

@@ -8,8 +8,8 @@ SourceMetric is a B2B supplier intelligence and vendor performance platform. It 
 - SourceMetric Score and supplier performance breakdowns
 - Supplier comparison and saved supplier networks
 - Buyer evaluations and public supplier reviews
-- Business analytics, risk signals, and exports on eligible plans
-- Supplier profile claiming, media portfolios, and performance reporting
+- Free buyer analytics, risk signals, scorecards, and network exports
+- Free supplier profile claiming, company information, and media portfolios
 - Role-based authentication, protected workspaces, and billing foundations
 - Administrative claim review and supplier import foundations
 
@@ -38,13 +38,18 @@ SourceMetric is a B2B supplier intelligence and vendor performance platform. It 
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Browser-safe Supabase publishable/anon key |
 | `SUPABASE_SERVICE_ROLE_KEY` | Server-only Supabase service role key |
-| `STRIPE_SECRET_KEY` | Server-only Stripe secret key |
-| `STRIPE_WEBHOOK_SECRET` | Stripe webhook signing secret |
-| `STRIPE_BUILDER_PRO_PRICE_ID` | Stripe price for the visible Business Pro plan |
-| `STRIPE_SUPPLIER_VERIFIED_PRICE_ID` | Stripe price for Supplier Growth |
-| `STRIPE_SUPPLIER_PREMIUM_PRICE_ID` | Stripe price for Supplier Premium |
+| `ENABLE_PAID_CHECKOUT` | Keep `false` during the free launch period |
+| `STRIPE_SECRET_KEY` | Server-only Stripe secret key reserved for future subscriptions |
+| `STRIPE_WEBHOOK_SECRET` | Stripe webhook signing secret reserved for future subscriptions |
+| `STRIPE_BUILDER_PRO_PRICE_ID` | Legacy price ID; not sold while checkout is disabled |
+| `STRIPE_SUPPLIER_VERIFIED_PRICE_ID` | Future supplier price ID; not sold at launch |
+| `STRIPE_SUPPLIER_PREMIUM_PRICE_ID` | Future supplier price ID; not sold at launch |
 
 `GOOGLE_PLACES_API_KEY` is optional and only needed for the administrator supplier-import tool. Never expose server-only keys with a `NEXT_PUBLIC_` prefix.
+
+## Launch access model
+
+Buyer access is free with no credit card. Supplier participation, profile claiming, core company management, and basic buyer inquiry participation are also free. Stripe infrastructure remains in the repository for future optional supplier business tools, but every checkout route returns a disabled response unless `ENABLE_PAID_CHECKOUT=true`. Do not enable it until the corresponding product features and Stripe prices are approved for sale.
 
 ## Database
 
