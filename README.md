@@ -1,69 +1,55 @@
-# TradeStak
+# SourceMetric
 
-TradeStak is the reputation intelligence network for construction builders and suppliers. Builders discover and evaluate partners using verified performance signals; suppliers claim their profiles, manage reputation, and become easier to discover.
+SourceMetric is a B2B supplier intelligence and vendor performance platform. It helps businesses find, evaluate, compare, and track suppliers using structured performance information rather than price alone, word of mouth, or generic star ratings.
 
-## Product areas
+## Product capabilities
 
-- Premium marketing homepage and pricing experience
-- Builder supplier-network workspace
-- Supplier reputation and growth workspace
-- Searchable construction supplier marketplace
-- Role-based Supabase authentication
-- Stripe subscription checkout, billing portal, and verified webhooks
-- Supplier claiming and admin review workflows
-- Responsive TradeStak design system
+- Searchable supplier directory with category, location, verification, and score filters
+- SourceMetric Score and supplier performance breakdowns
+- Supplier comparison and saved supplier networks
+- Buyer evaluations and public supplier reviews
+- Business analytics, risk signals, and exports on eligible plans
+- Supplier profile claiming, media portfolios, and performance reporting
+- Role-based authentication, protected workspaces, and billing foundations
+- Administrative claim review and supplier import foundations
 
 ## Technology
 
-Next.js 15 App Router, React 19, TypeScript, Supabase Auth/Postgres with row-level security, Stripe Billing, CSS Modules, and Vercel.
+- Next.js 15 App Router and React 19
+- TypeScript
+- Supabase Authentication, Postgres, and Storage
+- Stripe subscriptions and verified webhooks
+- Vercel deployment configuration
 
 ## Local development
 
-Requirements: Node.js 20 or newer and npm.
+1. Install Node.js 20 or newer.
+2. Copy `.env.example` to `.env.local`.
+3. Add the environment values listed below.
+4. Run `npm install`.
+5. Run `npm run dev`.
+6. Open `http://localhost:3000`.
 
-```bash
-npm install
-copy .env.example .env.local
-npm run dev
-```
+## Required environment variables
 
-Open `http://localhost:3000`. Run `npm run typecheck` and `npm run build` before proposing changes.
+| Name | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Public site address, such as `https://sourcemetric.example` |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Browser-safe Supabase publishable/anon key |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-only Supabase service role key |
+| `STRIPE_SECRET_KEY` | Server-only Stripe secret key |
+| `STRIPE_WEBHOOK_SECRET` | Stripe webhook signing secret |
+| `STRIPE_BUILDER_PRO_PRICE_ID` | Stripe price for the visible Business Pro plan |
+| `STRIPE_SUPPLIER_VERIFIED_PRICE_ID` | Stripe price for Supplier Growth |
+| `STRIPE_SUPPLIER_PREMIUM_PRICE_ID` | Stripe price for Supplier Premium |
 
-## Environment modes
+`GOOGLE_PLACES_API_KEY` is optional and only needed for the administrator supplier-import tool. Never expose server-only keys with a `NEXT_PUBLIC_` prefix.
 
-TradeStak uses live Supabase records in every environment. The application does not bundle demonstration suppliers, reviews, or account activity.
+## Database
 
-## Environment variables
+Apply `supabase/schema.sql`, then the files in `supabase/migrations` in filename order. Existing technical identifiers such as the `builder` role, `/builder` routes, and `builder_user_id` columns are intentionally retained for database and deployment compatibility. The product displays this role as **Business / Buyer**.
 
-| Variable | Visibility | Purpose |
-| --- | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Public | Canonical origin used for redirects |
-| `NEXT_PUBLIC_SUPABASE_URL` | Public | Supabase project URL |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Public | Supabase browser key; protected by RLS |
-| `SUPABASE_SERVICE_ROLE_KEY` | Server only | Admin database operations and webhooks |
-| `STRIPE_SECRET_KEY` | Server only | Stripe API access |
-| `STRIPE_WEBHOOK_SECRET` | Server only | Stripe webhook signature verification |
-| `STRIPE_BUILDER_PRO_PRICE_ID` | Server only | Builder Pro recurring price |
-| `STRIPE_SUPPLIER_VERIFIED_PRICE_ID` | Server only | Supplier Verified recurring price |
-| `STRIPE_SUPPLIER_PREMIUM_PRICE_ID` | Server only | Supplier Premium recurring price |
+## Validation and deployment
 
-Copy `.env.example`; never commit `.env.local`. No Stripe secret or Supabase service-role key may use a `NEXT_PUBLIC_` prefix.
-
-## Database setup
-
-Run `supabase/schema.sql` in a new Supabase project, then use `supabase/seed.sql` only for a demo environment. The schema covers profiles, suppliers, claims, saved suppliers, evaluations, reviews, notifications, subscriptions, and processed webhook events.
-
-To provision demo logins, load the demo-only variables into your shell and run `npm run seed:demo`. The script refuses to run when app mode is `production`.
-
-## Deployment
-
-The intended host is Vercel. Follow [DEPLOYMENT.md](./DEPLOYMENT.md) for environment setup, Stripe webhook registration, database preparation, deployment, and smoke testing.
-
-## Security model
-
-- Auth sessions use Supabase SSR cookies.
-- Builder, supplier, and admin routes enforce roles.
-- Row-level security protects user-owned database records.
-- Subscription mutations run only on the server.
-- Stripe webhooks verify the raw payload signature and de-duplicate events.
-- Security headers deny framing, MIME sniffing, and unused browser capabilities.
+Run `npm run typecheck` and `npm run build` before pushing. The included `vercel.json` uses `npm install` and the standard Next.js production build. See `DEPLOYMENT.md` for the release checklist.

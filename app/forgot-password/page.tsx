@@ -1,1 +1,1 @@
-import type {Metadata} from 'next';import {ForgotForm} from '@/components/AuthForms';export const metadata:Metadata={title:'Reset password | TradeStak'};export default function Page(){return <ForgotForm/>}
+import type {Metadata} from 'next';import {ForgotForm} from '@/components/AuthForms';export const metadata:Metadata={title:'Reset password | SourceMetric'};export default function Page(){return <ForgotForm/>}

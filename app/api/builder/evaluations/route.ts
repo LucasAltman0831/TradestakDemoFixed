@@ -4,7 +4,7 @@ import {evaluationSchema} from '@/lib/validation';
 
 export async function POST(request:Request){
   const {user,profile,supabase}=await getViewer();
-  if(!user||profile?.role!=='builder')return NextResponse.json({error:'Builder account required.'},{status:403});
+  if(!user||profile?.role!=='builder')return NextResponse.json({error:'Business account required.'},{status:403});
   const parsed=evaluationSchema.safeParse(await request.json());
   if(!parsed.success)return NextResponse.json({error:parsed.error.issues[0]?.message||'Invalid evaluation.'},{status:400});
   const {publish_review,project_name,project_type,review_body,...scores}=parsed.data;

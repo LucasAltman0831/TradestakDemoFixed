@@ -7,9 +7,9 @@ export type PaidPlan='builder_pro'|'supplier_verified'|'supplier_premium';
 type PlanConfig={name:string;role:Extract<Role,'builder'|'supplier'>;priceEnv:string;billingPath:string};
 
 export const paidPlans:Record<PaidPlan,PlanConfig>={
-  builder_pro:{name:'TradeStak Builder Pro',role:'builder',priceEnv:'STRIPE_BUILDER_PRO_PRICE_ID',billingPath:'/builder/billing'},
-  supplier_verified:{name:'TradeStak Supplier Growth',role:'supplier',priceEnv:'STRIPE_SUPPLIER_VERIFIED_PRICE_ID',billingPath:'/supplier/billing'},
-  supplier_premium:{name:'TradeStak Supplier Premium',role:'supplier',priceEnv:'STRIPE_SUPPLIER_PREMIUM_PRICE_ID',billingPath:'/supplier/billing'},
+  builder_pro:{name:'SourceMetric Business Pro',role:'builder',priceEnv:'STRIPE_BUILDER_PRO_PRICE_ID',billingPath:'/builder/billing'},
+  supplier_verified:{name:'SourceMetric Supplier Growth',role:'supplier',priceEnv:'STRIPE_SUPPLIER_VERIFIED_PRICE_ID',billingPath:'/supplier/billing'},
+  supplier_premium:{name:'SourceMetric Supplier Premium',role:'supplier',priceEnv:'STRIPE_SUPPLIER_PREMIUM_PRICE_ID',billingPath:'/supplier/billing'},
 };
 
 let stripeClient:Stripe|undefined;

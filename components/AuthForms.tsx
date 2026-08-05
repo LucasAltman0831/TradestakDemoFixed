@@ -33,13 +33,13 @@ function BrandPanel({mode}:{mode:'login'|'signup'}) {
   return <aside className={styles.brandPanel}>
     <BrandLogo variant="horizontal" size="lg" className={styles.brand}/>
     <div className={styles.brandCopy}>
-      <p className={styles.kicker}>Construction reputation intelligence</p>
-      <h2>{mode === 'login' ? 'TradeStak Network' : 'Build trust before the first bid is opened.'}</h2>
-      <p>{mode === 'login' ? 'Your supplier intelligence network, ready for the next project decision.' : 'Verified performance data gives builders confidence and gives great suppliers the visibility they deserve.'}</p>
+      <p className={styles.kicker}>Supplier performance intelligence</p>
+      <h2>{mode === 'login' ? 'SourceMetric Network' : 'Build trust before the first bid is opened.'}</h2>
+      <p>{mode === 'login' ? 'Your supplier intelligence workspace, ready for the next sourcing decision.' : 'Structured performance data helps purchasing teams decide with confidence and gives strong suppliers the visibility they deserve.'}</p>
       <div className={styles.proofCard}>
         <div className={styles.networkStat}><span>Live network</span><strong>Real companies. Real feedback.</strong></div>
         <div className={styles.proofMetrics}><span><ShieldCheck/><small>Role-based secure workspaces</small></span><span><ShieldCheck/><small>Transparent verification status</small></span></div>
-        <p><ShieldCheck size={16}/> Reputation data contributed by TradeStak members</p>
+        <p><ShieldCheck size={16}/> Reputation data contributed by SourceMetric members</p>
       </div>
     </div>
     <p className={styles.brandFooter}>Built for the people who build everything else.</p>
@@ -63,7 +63,7 @@ export function LoginForm({next,error}:{next?:string;error?:string}) {
     router.push(safePath(next) ?? '/api/auth/route'); router.refresh();
   }
   return <main className={styles.authShell}><BrandPanel mode="login"/><section className={styles.formPanel}><div className={styles.formBox}>
-    <div className={styles.mobileBrand}><BrandLogo variant="horizontal" size="sm"/></div><p className={styles.eyebrow}>Secure workspace access</p><h1>Welcome back to your supplier intelligence workspace.</h1><p className={styles.intro}>Sign in to continue to the TradeStak network.</p>
+    <div className={styles.mobileBrand}><BrandLogo variant="horizontal" size="sm"/></div><p className={styles.eyebrow}>Secure workspace access</p><h1>Welcome back to your supplier intelligence workspace.</h1><p className={styles.intro}>Sign in to continue to the SourceMetric network.</p>
     <form onSubmit={submit} noValidate>
       <label className={styles.field}><span>Work email</span><input name="email" type="email" autoComplete="email" placeholder="you@company.com" required/></label>
       <PasswordField/>
@@ -71,7 +71,7 @@ export function LoginForm({next,error}:{next?:string;error?:string}) {
       {message?<div className={styles.error} role="alert">{message}</div>:null}
       <button className={styles.primary} disabled={busy}>{busy?'Signing in…':<>Sign in <ArrowRight size={18}/></>}</button>
     </form>
-    <p className={styles.switch}>Don&apos;t have an account? <Link href="/signup">Join TradeStak</Link></p>
+    <p className={styles.switch}>Don&apos;t have an account? <Link href="/signup">Join SourceMetric</Link></p>
   </div></section></main>;
 }
 
@@ -94,17 +94,17 @@ export function SignupForm({initialRole}:{initialRole?:string}) {
     setSuccess(true);setMessage('Account created. Check your inbox to verify your email and open your workspace.');
   }
   return <main className={styles.authShell}><BrandPanel mode="signup"/><section className={styles.formPanel}><div className={`${styles.formBox} ${styles.signupBox}`}>
-    <div className={styles.mobileBrand}><BrandLogo variant="horizontal" size="sm"/></div><p className={styles.eyebrow}>{role?'Create your workspace':'Choose your TradeStak path'}</p><h1>{role?`Join as a ${role==='builder'?'Builder':'Supplier'}.`:'What best describes you?'}</h1>
+    <div className={styles.mobileBrand}><BrandLogo variant="horizontal" size="sm"/></div><p className={styles.eyebrow}>{role?'Create your workspace':'Choose your SourceMetric path'}</p><h1>{role?`Join as a ${role==='builder'?'Business':'Supplier'}.`:'What best describes you?'}</h1>
     {!role?<><p className={styles.intro}>Your role shapes the intelligence, tools, and dashboard you see.</p><div className={styles.roleGrid}>
-      <button onClick={()=>setRole('builder')}><span className={styles.roleIcon}><Building2/></span><strong>Builder / Buyer</strong><p>Find trusted suppliers faster.</p><em>Explore the builder workspace <ArrowRight size={16}/></em></button>
-      <button onClick={()=>setRole('supplier')}><span className={styles.roleIcon}><HardHat/></span><strong>Supplier / Trade Partner</strong><p>Build your reputation and get discovered.</p><em>Build your supplier presence <ArrowRight size={16}/></em></button>
+      <button onClick={()=>setRole('builder')}><span className={styles.roleIcon}><Building2/></span><strong>Business / Buyer</strong><p>Find, compare, and track suppliers.</p><em>Explore the business workspace <ArrowRight size={16}/></em></button>
+      <button onClick={()=>setRole('supplier')}><span className={styles.roleIcon}><HardHat/></span><strong>Supplier</strong><p>Build credibility and maintain an accurate profile.</p><em>Build your supplier presence <ArrowRight size={16}/></em></button>
     </div></>:<><button className={styles.back} onClick={()=>{setRole(undefined);setMessage('')}}>← Change account type</button><form onSubmit={submit} noValidate>
-      <div className={styles.twoCols}><label className={styles.field}><span>Full name</span><input name="full_name" autoComplete="name" placeholder="Alex Morgan" required minLength={2}/></label><label className={styles.field}><span>Company name</span><input name="company" autoComplete="organization" placeholder="Morgan Construction" required minLength={2}/></label></div>
+      <div className={styles.twoCols}><label className={styles.field}><span>Full name</span><input name="full_name" autoComplete="name" placeholder="Alex Morgan" required minLength={2}/></label><label className={styles.field}><span>Company name</span><input name="company" autoComplete="organization" placeholder="Morgan Supply Group" required minLength={2}/></label></div>
       <label className={styles.field}><span>Work email</span><input name="email" type="email" autoComplete="email" placeholder="you@company.com" required/></label>
       <div className={styles.twoCols}><PasswordField autoComplete="new-password"/><PasswordField name="confirm_password" label="Confirm password" autoComplete="new-password"/></div>
       <p className={styles.passwordHint}>10+ characters with uppercase, lowercase, and a number.</p>
       {message?<div className={success?styles.success:styles.error} role="status">{message}</div>:null}
-      <button className={styles.primary} disabled={busy||success}>{busy?'Creating account…':success?'Check your inbox':<>Create {role==='builder'?'Builder':'Supplier'} Account <ArrowRight size={18}/></>}</button>
+      <button className={styles.primary} disabled={busy||success}>{busy?'Creating account…':success?'Check your inbox':<>Create {role==='builder'?'Business':'Supplier'} Account <ArrowRight size={18}/></>}</button>
     </form></>}
     <p className={styles.switch}>Already have an account? <Link href="/login">Sign in</Link></p>
   </div></section></main>;
