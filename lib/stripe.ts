@@ -8,7 +8,7 @@ type PlanConfig={name:string;role:Extract<Role,'builder'|'supplier'>;priceEnv:st
 
 export const paidPlans:Record<PaidPlan,PlanConfig>={
   builder_pro:{name:'TradeStak Builder Pro',role:'builder',priceEnv:'STRIPE_BUILDER_PRO_PRICE_ID',billingPath:'/builder/billing'},
-  supplier_verified:{name:'TradeStak Supplier Verified',role:'supplier',priceEnv:'STRIPE_SUPPLIER_VERIFIED_PRICE_ID',billingPath:'/supplier/billing'},
+  supplier_verified:{name:'TradeStak Supplier Growth',role:'supplier',priceEnv:'STRIPE_SUPPLIER_VERIFIED_PRICE_ID',billingPath:'/supplier/billing'},
   supplier_premium:{name:'TradeStak Supplier Premium',role:'supplier',priceEnv:'STRIPE_SUPPLIER_PREMIUM_PRICE_ID',billingPath:'/supplier/billing'},
 };
 

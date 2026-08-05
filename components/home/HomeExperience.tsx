@@ -57,24 +57,24 @@ function IntelligenceCard(){
 }
 
 const builderFeatures=[
-  {icon:Search,title:'Discover with evidence',text:'Search beyond names and locations. Compare suppliers using verified performance signals.'},
-  {icon:ShieldCheck,title:'Reduce supplier risk',text:'Spot delivery, quality, and communication patterns before they become project problems.'},
-  {icon:Radar,title:'See your whole network',text:'Turn scattered team knowledge into a clear, living view of supplier performance.'},
+  {icon:Search,title:'Discover with evidence',text:'Search beyond names and locations. Compare suppliers using verified performance signals.',href:'/marketplace',action:'Explore suppliers'},
+  {icon:ShieldCheck,title:'Reduce supplier risk',text:'Spot delivery, quality, and communication patterns before they become project problems.',href:'/signup?role=builder',action:'Create a builder workspace'},
+  {icon:Radar,title:'See your whole network',text:'Turn scattered team knowledge into a clear, living view of supplier performance.',href:'#how-it-works',action:'See how TradeStak works'},
 ];
 
 const supplierFeatures=[
-  {number:'01',title:'Claim your profile',text:'Verify ownership and take control of the company information builders rely on.'},
-  {number:'02',title:'Build visible trust',text:'Bring verified evaluations and performance signals into one credible reputation.'},
-  {number:'03',title:'Get discovered',text:'Stand out to builders searching for proven partners in your trade and market.'},
+  {number:'01',title:'Create your company profile',text:'Take control of the company information builders rely on.',href:'/signup?role=supplier'},
+  {number:'02',title:'Build visible trust',text:'Bring builder evaluations and performance signals into one credible reputation.',href:'/pricing#plans'},
+  {number:'03',title:'Get discovered',text:'See how builders find partners by trade and market.',href:'/marketplace'},
 ];
 
-export function HomeExperience(){
+export function HomeExperience({viewer}:{viewer:{name:string|null;role:string;dashboard:string}|null}){
   return <div className={styles.page}>
     <header className={styles.nav}>
       <Brand/>
       <nav aria-label="Primary navigation"><Link href="/marketplace">Marketplace</Link><a href="#builders">For builders</a><a href="#suppliers">For suppliers</a><Link href="/pricing">Pricing</Link><a href="#how-it-works">How it works</a></nav>
-      <div className={styles.navActions}><Link href="/login">Sign in</Link><Link className={styles.navButton} href="/signup">Join the network <ArrowRight size={15}/></Link></div>
-      <details className="homeMobileMenu"><summary aria-label="Open navigation"><Menu size={21}/></summary><div><Link href="/marketplace">Marketplace</Link><a href="#builders">For builders</a><a href="#suppliers">For suppliers</a><Link href="/pricing">Pricing</Link><a href="#how-it-works">How it works</a><Link href="/login">Sign in</Link></div></details>
+      <div className={styles.navActions}>{viewer?<><Link href="/profile">{viewer.name?.split(' ')[0]||'Profile'}</Link><Link className={styles.navButton} href={viewer.dashboard}>Open dashboard <ArrowRight size={15}/></Link></>:<><Link href="/login">Sign in</Link><Link className={styles.navButton} href="/signup">Join the network <ArrowRight size={15}/></Link></>}</div>
+      <details className="homeMobileMenu"><summary aria-label="Open navigation"><Menu size={21}/></summary><div><Link href="/marketplace">Marketplace</Link><a href="#builders">For builders</a><a href="#suppliers">For suppliers</a><Link href="/pricing">Pricing</Link><a href="#how-it-works">How it works</a>{viewer?<Link href={viewer.dashboard}>Dashboard</Link>:<Link href="/login">Sign in</Link>}</div></details>
     </header>
 
     <main>
@@ -84,8 +84,7 @@ export function HomeExperience(){
           <h1>Builders discover<br/><em>better suppliers.</em><br/>Suppliers prove<br/><em>their reputation.</em></h1>
           <p>TradeStak brings trusted performance data to the construction supply chain—so every partnership starts with clarity.</p>
           <div className={styles.heroActions}>
-            <Link data-analytics-event="signup_click" data-analytics-destination="builder" className={styles.primaryButton} href="/signup?role=builder"><Building2 size={18}/>I&apos;m a Builder<ArrowRight size={17}/></Link>
-            <Link data-analytics-event="signup_click" data-analytics-destination="supplier" className={styles.secondaryButton} href="/signup?role=supplier"><Users2 size={18}/>I&apos;m a Supplier<ArrowRight size={17}/></Link>
+            {viewer?<><Link className={styles.primaryButton} href={viewer.dashboard}><Building2 size={18}/>Open my dashboard<ArrowRight size={17}/></Link><Link className={styles.secondaryButton} href="/marketplace"><Search size={18}/>Explore the network<ArrowRight size={17}/></Link></>:<><Link data-analytics-event="signup_click" data-analytics-destination="builder" className={styles.primaryButton} href="/signup?role=builder"><Building2 size={18}/>I&apos;m a Builder<ArrowRight size={17}/></Link><Link data-analytics-event="signup_click" data-analytics-destination="supplier" className={styles.secondaryButton} href="/signup?role=supplier"><Users2 size={18}/>I&apos;m a Supplier<ArrowRight size={17}/></Link></>}
           </div>
           <div className={styles.trustLine}><span><Check size={14}/>Verified evaluations</span><span><Check size={14}/>Built for construction</span><span><Check size={14}/>Evidence, not ads</span></div>
         </div>
@@ -99,21 +98,21 @@ export function HomeExperience(){
       <section className={styles.builderSection} id="builders">
         <div className={styles.sectionIntro}><div><span className={styles.sectionIndex}>01 / BUILDERS</span><h2>Know who you&apos;re building with.</h2></div><p>Your team already knows which suppliers perform. TradeStak turns that experience into durable intelligence everyone can use.</p></div>
         <div className={styles.featureGrid}>
-          {builderFeatures.map(({icon:Icon,title,text},index)=><Link href="/marketplace" className={styles.featureCard} style={{display:'block',color:'inherit',textDecoration:'none'}} key={title}><div className={styles.featureTop}><span>0{index+1}</span><Icon size={22}/></div><h3>{title}</h3><p>{text}</p><span className={styles.featureLink}>Explore the network <ChevronRight size={15}/></span></Link>)}
+          {builderFeatures.map(({icon:Icon,title,text,href,action},index)=><Link href={href} className={styles.featureCard} style={{display:'block',color:'inherit',textDecoration:'none'}} key={title}><div className={styles.featureTop}><span>0{index+1}</span><Icon size={22}/></div><h3>{title}</h3><p>{text}</p><span className={styles.featureLink}>{action} <ChevronRight size={15}/></span></Link>)}
         </div>
         <div className={styles.builderConsole}>
-          <div className={styles.consoleCopy}><span className={styles.kicker}>YOUR SUPPLIER NETWORK</span><h3>A clearer signal across every trade.</h3><p>Monitor your network at a glance, compare performance, and focus attention where it matters.</p><Link href="/signup?role=builder">Build your TradeStak <ArrowRight size={16}/></Link></div>
+          <div className={styles.consoleCopy}><span className={styles.kicker}>YOUR SUPPLIER NETWORK</span><h3>A clearer signal across every trade.</h3><p>Monitor your network at a glance, compare performance, and focus attention where it matters.</p><Link href={viewer?viewer.dashboard:'/signup?role=builder'}>{viewer?'Open your workspace':'Create a builder workspace'} <ArrowRight size={16}/></Link></div>
           <div className={styles.metricBoard}>
-            <div className={styles.boardHeader}><span>NETWORK OVERVIEW</span><small>LAST 90 DAYS</small></div>
-            <div className={styles.boardMetrics}><div><small>Network health</small><strong><AnimatedScore value={91}/></strong><span className={styles.up}>↑ 4.2%</span></div><div><small>Tracked suppliers</small><strong><AnimatedScore value={128}/></strong><span>12 trades</span></div><div><small>Verified evaluations</small><strong><AnimatedScore value={346}/></strong><span>28 this month</span></div></div>
-            <div className={styles.riskRow}><span><ShieldCheck size={18}/></span><div><b>Low network risk</b><small>3 suppliers need attention</small></div><div className={styles.riskBar}><i/></div><b>82%</b></div>
+            <div className={styles.boardHeader}><span>NETWORK OVERVIEW</span><small>YOUR LIVE DATA</small></div>
+            <div className={styles.boardMetrics}><div><small>Network health</small><strong>Live</strong><span>Calculated from saved suppliers</span></div><div><small>Tracked suppliers</small><strong>Yours</strong><span>Organized in one network</span></div><div><small>Evaluations</small><strong>Real</strong><span>Submitted by builders</span></div></div>
+            <div className={styles.riskRow}><span><ShieldCheck size={18}/></span><div><b>Evidence-based risk review</b><small>Signals appear as your network grows</small></div><div className={styles.riskBar}><i/></div><b>PRO</b></div>
           </div>
         </div>
       </section>
 
       <section className={styles.supplierSection} id="suppliers">
         <div className={styles.supplierAside}><span className={styles.sectionIndex}>02 / SUPPLIERS</span><h2>Your reputation should work as hard as you do.</h2><p>Turn reliable service into a reputation builders can see before the first call.</p><div className={styles.reputationStamp}><Sparkles size={18}/><span><small>PROFILE STRENGTH</small><b><AnimatedScore value={88} suffix="%"/></b></span></div></div>
-        <div className={styles.supplierSteps}>{supplierFeatures.map(feature=><Link href="/signup?role=supplier" style={{display:'block',color:'inherit',textDecoration:'none'}} key={feature.number}><article><span>{feature.number}</span><div><h3>{feature.title}</h3><p>{feature.text}</p></div><ArrowRight size={18}/></article></Link>)}</div>
+        <div className={styles.supplierSteps}>{supplierFeatures.map(feature=><Link href={feature.href} style={{display:'block',color:'inherit',textDecoration:'none'}} key={feature.number}><article><span>{feature.number}</span><div><h3>{feature.title}</h3><p>{feature.text}</p></div><ArrowRight size={18}/></article></Link>)}</div>
       </section>
 
       <section className={styles.proofSection}>
@@ -123,7 +122,7 @@ export function HomeExperience(){
       </section>
 
       <section className={styles.cta}>
-        <div className={styles.ctaGrid}/><span className={styles.kicker}>BUILD BETTER RELATIONSHIPS</span><h2>The strongest projects start<br/>with the right partners.</h2><p>Join the reputation intelligence network built for construction.</p><div><Link className={styles.lightButton} href="/signup">Join TradeStak <ArrowRight size={17}/></Link><Link className={styles.textButton} href="/marketplace">Explore the supplier network</Link></div>
+        <div className={styles.ctaGrid}/><span className={styles.kicker}>BUILD BETTER RELATIONSHIPS</span><h2>The strongest projects start<br/>with the right partners.</h2><p>Join the reputation intelligence network built for construction.</p><div><Link className={styles.lightButton} href={viewer?viewer.dashboard:'/signup'}>{viewer?'Return to dashboard':'Join TradeStak'} <ArrowRight size={17}/></Link><Link className={styles.textButton} href="/marketplace">Explore the supplier network</Link></div>
       </section>
     </main>
 

@@ -1,2 +1,8 @@
-import Image from 'next/image';import Link from 'next/link';import styles from './BrandLogo.module.css';
-export function BrandLogo({variant='horizontal',size='md',className='' }:{variant?:'horizontal'|'mark';size?:'sm'|'md'|'lg';className?:string}){const mark=variant==='mark';return <Link href="/" className={`${styles.logo} ${styles[size]} ${mark?styles.mark:styles.horizontal} ${className}`} aria-label="TradeStak home"><Image src={mark?'/brand/tradestak-mark-256.png':'/brand/tradestak-logo.png'} alt="TradeStak" width={mark?256:1647} height={mark?256:551} priority={size==='lg'}/></Link>}
+import Image from 'next/image';
+import Link from 'next/link';
+import styles from './BrandLogo.module.css';
+
+export function BrandLogo({variant='horizontal',size='md',className='',href='/'}:{variant?:'horizontal'|'mark';size?:'sm'|'md'|'lg';className?:string;href?:string}){
+  const mark=variant==='mark';
+  return <Link href={href} className={`${styles.logo} ${styles[size]} ${mark?styles.mark:styles.horizontal} ${className}`} aria-label="TradeStak"><Image src={mark?'/brand/tradestak-mark-256.png':'/brand/tradestak-logo.png'} alt="TradeStak" width={mark?256:1647} height={mark?256:551} priority={size==='lg'}/></Link>;
+}
