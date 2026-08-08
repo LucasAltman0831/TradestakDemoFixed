@@ -1,7 +1,3 @@
-import {PricingExperience} from '@/components/pricing/PricingExperience';
-import {dashboardFor,getViewer} from '@/lib/auth';
-
-export default async function Page(){
-  const {user,profile}=await getViewer();
-  return <PricingExperience viewer={user&&profile?{name:profile.full_name,dashboard:dashboardFor(profile.role)}:null}/>;
-}
+import Link from 'next/link';
+import {Nav} from '@/components/Nav';
+export default function AccessPage(){return <><Nav/><main className="legalPage"><span className="eyebrow">LAUNCH ACCESS</span><h1>Free for businesses and suppliers.</h1><p className="lede">SourceMetric is free during its current launch phase. Businesses and suppliers can participate without a subscription or credit card.</p><section className="legalCard"><h2>Everything needed to start a supplier relationship</h2><p>Search, structured performance information, saved suppliers, comparisons, inquiries, private messages, meeting requests, profiles, claims, and eligible evaluations are included.</p><h2>Reputation is never for sale</h2><p>Payment cannot improve a SourceMetric Score, ranking, verification decision, or review outcome. SourceMetric has no sponsored placement or promoted suppliers.</p><h2>Product boundary</h2><p>SourceMetric supports discovery, evaluation, introductions, communication, and meetings. Contracts, purchase orders, payments, awards, and procurement approvals remain between participating businesses.</p><Link className="button" href="/signup">Join the beta</Link></section></main></>}

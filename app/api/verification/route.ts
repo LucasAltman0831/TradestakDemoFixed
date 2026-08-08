@@ -9,7 +9,7 @@ function domainFromWebsite(value:string){try{return new URL(value).hostname.toLo
 
 export async function POST(request:Request){
   const {user,profile,supabase}=await getViewer();
-  if(!user||!profile||!['builder','supplier'].includes(profile.role))return NextResponse.json({error:'A business or supplier account is required.'},{status:403});
+  if(!user||!profile||!['business','supplier'].includes(profile.role))return NextResponse.json({error:'A business or supplier account is required.'},{status:403});
   if(!user.email_confirmed_at)return NextResponse.json({error:'Confirm your account email before requesting company verification.'},{status:403});
   const parsed=companyVerificationSchema.safeParse(await request.json());
   if(!parsed.success)return NextResponse.json({error:parsed.error.issues[0]?.message||'Invalid verification request.'},{status:400});

@@ -2,7 +2,7 @@ import {createServerClient} from '@supabase/ssr';
 import {NextResponse,type NextRequest} from 'next/server';
 import type {Role} from '@/lib/types';
 
-const protectedArea=(pathname:string):Role|null=>pathname.startsWith('/builder/')?'builder':pathname.startsWith('/supplier/')?'supplier':pathname==='/admin'||pathname.startsWith('/admin/')?'admin':null;
+const protectedArea=(pathname:string):Role|null=>pathname.startsWith('/business/')?'business':pathname.startsWith('/builder/')?'business':pathname.startsWith('/supplier/')?'supplier':pathname==='/admin'||pathname.startsWith('/admin/')?'admin':null;
 const safeNext=(request:NextRequest)=>`${request.nextUrl.pathname}${request.nextUrl.search}`;
 
 export async function middleware(request:NextRequest){

@@ -1,0 +1,5 @@
+import {NextResponse} from 'next/server';
+import {z} from 'zod';
+import {getViewer} from '@/lib/auth';
+const schema=z.object({supplier_profile_id:z.string().uuid(),subject:z.string().trim().min(3).max(160),message:z.string().trim().min(10).max(5000),category:z.string().trim().max(120).optional(),approximate_need:z.string().trim().max(240).optional(),timeline:z.string().trim().max(120).optional(),preferred_contact_method:z.string().trim().max(80).optional()});
+export async function POST(request:Request){const {user,profile,supabase}=await getViewer();if(!user||profile?.role!=='business')return NextResponse.json({error:'Business account required.'},{status:403});const parsed=schema.safeParse(await request.json());if(!parsed.success)return NextResponse.json({error:parsed.error.issues[0]?.message||'Invalid inquiry.'},{status:400});const {data,error}=await supabase.from('inquiries').insert({business_user_id:user.id,...parsed.data}).select('id').single();if(error)return NextResponse.json({error:'Unable to send inquiry.'},{status:400});return NextResponse.json({ok:true,id:data.id});}

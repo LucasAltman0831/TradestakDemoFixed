@@ -1,0 +1,2 @@
+import {Nav} from './Nav';
+export function PolicyPage({eyebrow,title,intro,sections}:{eyebrow:string;title:string;intro:string;sections:[string,string][]}){return <><Nav/><main className="legalPage"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p className="lede">{intro}</p><section className="legalCard">{sections.map(([heading,body])=><div key={heading}><h2>{heading}</h2><p>{body}</p></div>)}</section></main></>}
